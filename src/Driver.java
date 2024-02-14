@@ -27,7 +27,7 @@ public class Driver {
         /* Complete here the code for the main method ...*/
         objServer.start();
 
-
+        //start both client threads
         Client objClient = new Client("sending");
         objClient.start();
         Client objClient2 = new Client("receiving");
