@@ -42,7 +42,7 @@ public class Network extends Thread{
             clientConnectionStatus = "idle";
             serverConnectionStatus = "idle";
             portID = 0;
-            maxNbPackets = 20;
+            maxNbPackets = 10;
             inComingPacket = new Transactions[maxNbPackets];
             outGoingPacket = new Transactions[maxNbPackets];
             for (i=0; i < maxNbPackets; i++)
@@ -363,8 +363,8 @@ public class Network extends Thread{
             inComingPacket[inputIndexClient].setTransactionError(inPacket.getTransactionError());
             inComingPacket[inputIndexClient].setTransactionStatus("transferred");
 
-            System.out.println("\n input index" + inputIndexClient);
-            System.out.println("\n incoming packet act number" + inComingPacket[inputIndexClient].getAccountNumber());
+            System.out.println("\n input index " + inputIndexClient);
+            System.out.println("\n incoming packet act number " + inComingPacket[inputIndexClient].getAccountNumber());
             
             
             setinputIndexClient(((getinputIndexClient( ) + 1) % getMaxNbPackets ()));	/* Increment the input buffer index  for the client */
@@ -429,7 +429,7 @@ public class Network extends Thread{
             outGoingPacket[inputIndexServer].setTransactionStatus("transferred");
             
             System.out.println("\n Network.transferOut() - index inputIndexServer " + inputIndexServer);
-            System.out.println("\n Network.transferOut() - account number im here " + outGoingPacket[inputIndexServer].getAccountNumber());
+            System.out.println("\n Network.transferOut() - " + outGoingPacket[inputIndexServer].getAccountNumber());
             
             setinputIndexServer(((getinputIndexServer() + 1) % getMaxNbPackets())); /* Increment the output buffer index for the server */
             /* Check if output buffer is full */

@@ -193,14 +193,14 @@ public class Server extends Thread{
          while ((!objNetwork.getClientConnectionStatus().equals("disconnected")))
          {
         	  while( (objNetwork.getInBufferStatus().equals("empty")) && objNetwork.getServerConnectionStatus().equals("connected")){
-                  System.out.println("The server is : " + objNetwork.getServerConnectionStatus());
-                  System.out.println("yielding the transferIn");
+//                  System.out.println("The server is : " + objNetwork.getServerConnectionStatus());
+//                  System.out.println("yielding the transferIn");
                   Thread.yield();
               }
 
         	 if (!objNetwork.getInBufferStatus().equals("empty"))
         	 {
-        		 System.out.println("\n Server.processTransactions() - transferring in account " + trans.getAccountNumber());
+//        		 System.out.println("\n Server.processTransactions() - transferring in account " + trans.getAccountNumber());
 
         		 objNetwork.transferIn(trans);                              /* Transfer a transaction from the network input buffer */
 
@@ -232,16 +232,16 @@ public class Server extends Thread{
                             trans.setTransactionBalance(newBalance);
                             trans.setTransactionStatus("done");
 
-                            System.out.println("\n  Server.processTransactions() - Obtaining balance from account" + trans.getAccountNumber());
+//                            System.out.println("\n  Server.processTransactions() - Obtaining balance from account" + trans.getAccountNumber());
         				 }
 
         		  while( (objNetwork.getOutBufferStatus().equals("full")) && objNetwork.getServerConnectionStatus().equals("connected")){
-                      System.out.println("The server is : " + objNetwork.getServerConnectionStatus());
-                      System.out.println("yielding the transfer Out");
+//                      System.out.println("The server is : " + objNetwork.getServerConnectionStatus());
+//                      System.out.println("yielding the transfer Out");
                       Thread.yield(); /* Alternatively,  busy-wait until the network output buffer is available */
                   }
 
-        		 System.out.println("\n Server.processTransactions() - transferring out account " + trans.getAccountNumber());
+//        		 System.out.println("\n Server.processTransactions() - transferring out account " + trans.getAccountNumber());
 
         		 objNetwork.transferOut(trans);                            		/* Transfer a completed transaction from the server to the network output buffer */
         		 setNumberOfTransactions( (getNumberOfTransactions() +  1) ); 	/* Count the number of transactions processed */

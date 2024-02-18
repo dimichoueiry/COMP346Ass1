@@ -140,16 +140,14 @@ public class Client extends Thread {
         int i = 0;     /* index of transaction array */
 
         while (i < getNumberOfTransactions()) {
-            System.out.println("The client is : " + objNetwork.getClientConnectionStatus());
              while( objNetwork.getInBufferStatus().equals("full") && objNetwork.getClientConnectionStatus().equals("connected") ){
-                 System.out.println("The client is " + objNetwork.getClientConnectionStatus());
-                 System.out.println("yielding send");
+//                 System.out.println("The client is " + objNetwork.getClientConnectionStatus());
                  Thread.yield();/* Alternatively, busy-wait until the network input buffer is available */
              }
 
             transaction[i].setTransactionStatus("sent");   /* Set current transaction status */
 
-            System.out.println("\n client.run(): sending transaction account Number: " + transaction[i].getAccountNumber());
+//            System.out.println("\n client.run(): sending transaction account Number: " + transaction[i].getAccountNumber());
 
             objNetwork.send(transaction[i]);                            /* Transmit current transaction */
             i++;
@@ -167,16 +165,16 @@ public class Client extends Thread {
         int i = 0;     /* Index of transaction array */
 
         while (i < getNumberOfTransactions()) {
-            System.out.println("The client is : " + objNetwork.getClientConnectionStatus());
+//            System.out.println("The client is : " + objNetwork.getClientConnectionStatus());
              while( objNetwork.getOutBufferStatus().equals("empty") && objNetwork.getClientConnectionStatus().equals("connected")){
-                 System.out.println("The client is : " + objNetwork.getClientConnectionStatus());
-                 System.out.println("yielding receive");
+//                 System.out.println("The client is : " + objNetwork.getClientConnectionStatus());
+//                 System.out.println("yielding receive");
                  Thread.yield();
              }
 
             objNetwork.receive(transact);                                /* Receive updated transaction from the network buffer */
 
-            System.out.println("\n receiving transaction account number: " + transact.getAccountNumber());
+//            System.out.println("\n receiving transaction account number: " + transact.getAccountNumber());
 
             System.out.println(transact);                                /* Display updated transaction */
             i++;
@@ -202,10 +200,11 @@ public class Client extends Thread {
     @Override
     public void run() {
         Transactions transact = new Transactions();
-        long sendClientStartTime = 0, sendClientEndTime, receiveClientStartTime, receiveClientEndTime;
+        long sendClientStartTime, sendClientEndTime, receiveClientStartTime, receiveClientEndTime;
 
         if ("connected".equals(objNetwork.getClientConnectionStatus())) {
             if ("sending".equals(getClientOperation())) {
+                sendClientStartTime = System.currentTimeMillis();
                 sendTransactions();
                 objNetwork.disconnect(objNetwork.getClientIP());
                 System.out.println(objNetwork.getClientConnectionStatus());
@@ -220,6 +219,9 @@ public class Client extends Thread {
                 System.out.println("\n Terminating client receiving thread - Running time " + (receiveClientEndTime - receiveClientStartTime) + " milliseconds");
             }
         }
+
     }
+
+
 
 }
